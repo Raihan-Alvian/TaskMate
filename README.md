@@ -1,13 +1,29 @@
-Tugas Besar Mata Kuliah Algoritma Pemrograman 2
+# TaskMate
 
-16. Aplikasi Pengelola Tugas Rumah Tangga (TaskMate)
+TaskMate adalah aplikasi CLI sederhana yang membantu anggota keluarga atau penghuni rumah mengelola tugas rumah tangga secara terstruktur dan efisien.
 
-Deskripsi:
-TaskMate adalah aplikasi untuk mengelola dan menjadwalkan berbagai pekerjaan rumah tangga secara harian. Data utama yang digunakan adalah data jenis tugas, tingkat kesulitan, dan estimasi waktu kerja. Pengguna aplikasi adalah anggota keluarga atau penghuni rumah.
+## Deskripsi
+Aplikasi ini dirancang untuk mencatat dan menjadwalkan pekerjaan rumah tangga harian dengan fokus pada:
+- Nama tugas
+- Kategori ruangan
+- Deskripsi singkat
+- Tingkat kesulitan
+- Estimasi durasi
+- Status selesai
 
-Spesifikasi:
-- Pengguna dapat menambahkan, mengubah, dan menghapus data daftar tugas rumah tangga.
-- Sistem dapat mencatat deskripsi pekerjaan, skala kesulitan, dan durasi pengerjaan dalam menit.
-- Pengguna dapat mencari data tugas berdasarkan nama pekerjaan atau kategori ruangan menggunakan Sequential dan Binary Search.
-- Pengguna dapat mengurutkan data tugas berdasarkan tingkat kesulitan atau estimasi waktu selesai menggunakan Selection dan Insertion Sort.
-- Sistem dapat menampilkan statistik jumlah tugas yang sudah selesai dan rata-rata waktu yang dihabiskan untuk bekerja.
+## Fitur Utama
+- Menambahkan, menampilkan, mengedit, dan menghapus tugas
+- Menandai tugas sebagai selesai
+- Menyusun daftar tugas secara rapi
+- Menampilkan statistik tugas selesai dan durasi rata-rata
+- Mencari tugas berdasarkan nama atau kategori
+- Memperkenalkan algoritma dasar: Sequential Search, Binary Search, Selection Sort, dan Insertion Sort
+
+## Teknologi
+- Bahasa pemrograman: Go
+- Tipe aplikasi: Command Line Interface (CLI)
+
+## Catatan
+Proyek ini dibuat sebagai tugas besar mata kuliah ALGORITMA DAN PEMROGRAMAN 2.
+
+Jangan menyalin atau mengklaim karya ini sebagai milik sendiri. Harap gunakan hanya sebagai referensi.
