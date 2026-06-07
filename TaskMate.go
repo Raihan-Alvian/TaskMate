@@ -32,6 +32,8 @@ func tampilMenu() {
 	fmt.Print("  Pilihan: ")
 }
 
+// Fungsi untuk memasukkan data tugas baru secara sekuensial
+// dimulai dari 0
 func inputTugas(t *tugas, nomor int) {
 	fmt.Printf("\n  Tugas #%d\n", nomor)
 	fmt.Print("  Nama            : ")
@@ -52,7 +54,7 @@ func inputTugas(t *tugas, nomor int) {
 	fmt.Scan(&t.durasi)
 }
 
-func menambahkan(T *tabTugas, n *int) {
+func menuInput(T *tabTugas, n *int) {
 	*n = *n + 1
 	inputTugas(&T[*n], *n+1)
 	fmt.Println("\n  Tugas berhasil ditambahkan.")
@@ -78,13 +80,14 @@ func menampilkan(T tabTugas, n int) {
 	if n < 0 {
 		fmt.Println("\n  Belum ada tugas.")
 		return
+	} else {
+		fmt.Println("\n  Daftar Tugas")
+		fmt.Println("  ------------------------")
+		for i = 0; i <= n; i++ {
+			tampilTugas(T, i)
+		}
+		fmt.Println()
 	}
-	fmt.Println("\n  Daftar Tugas")
-	fmt.Println("  ------------------------")
-	for i = 0; i <= n; i++ {
-		tampilTugas(T, i)
-	}
-	fmt.Println()
 }
 
 func statistik(T tabTugas, n int) {
@@ -103,8 +106,8 @@ func statistik(T tabTugas, n int) {
 	fmt.Printf("  Sudah Selesai      : %d\n", totalSelesai)
 	fmt.Printf("  Belum Selesai      : %d\n", totalBelum)
 	if totalSelesai > 0 {
-		fmt.Printf("  Total Waktu Selesai: %d menit\n", totalDurasiSelesai)
-		fmt.Printf("  Rata-rata Waktu    : %.1f menit\n", float64(totalDurasiSelesai)/float64(totalSelesai))
+		fmt.Printf("  Total Waktu Selesai : %d menit\n", totalDurasiSelesai)
+		fmt.Printf("  Rata-rata Waktu     : %.2f menit\n", float64(totalDurasiSelesai)/float64(totalSelesai))
 	}
 	fmt.Println()
 }
@@ -388,7 +391,7 @@ func main() {
 	for p != 0 {
 		switch p {
 		case 1:
-			menambahkan(&T, &n)
+			menuInput(&T, &n)
 		case 2:
 			menampilkan(T, n)
 		case 3:
