@@ -79,7 +79,6 @@ func menampilkan(T tabTugas, n int) {
 	var i int
 	if n < 0 {
 		fmt.Println("\n  Belum ada tugas.")
-		return
 	} else {
 		fmt.Println("\n  Daftar Tugas")
 		fmt.Println("  ------------------------")
@@ -321,11 +320,11 @@ func edit(T *tabTugas, n int, nama string) {
 	found = sequentialSearchNama(*T, n, nama)
 	if found == -1 {
 		fmt.Println("\n  Tugas tidak ditemukan.")
-		return
+	} else {
+		fmt.Println("\n  Edit Tugas (isi ulang data):")
+		inputTugas(&T[found], found+1)
+		fmt.Println("\n  Tugas berhasil diperbarui.")
 	}
-	fmt.Println("\n  Edit Tugas (isi ulang data):")
-	inputTugas(&T[found], found+1)
-	fmt.Println("\n  Tugas berhasil diperbarui.")
 }
 
 func menuEdit(T *tabTugas, n int) {
@@ -342,13 +341,13 @@ func hapus(T *tabTugas, n *int, nama string) {
 	found = sequentialSearchNama(*T, *n, nama)
 	if found == -1 {
 		fmt.Println("\n  Tugas tidak ditemukan.")
-		return
+	} else {
+		for i = found; i <= *n-1; i++ {
+			T[i] = T[i+1]
+		}
+		*n = *n - 1
+		fmt.Println("\n  Tugas berhasil dihapus.")
 	}
-	for i = found; i <= *n-1; i++ {
-		T[i] = T[i+1]
-	}
-	*n = *n - 1
-	fmt.Println("\n  Tugas berhasil dihapus.")
 }
 
 func menuHapus(T *tabTugas, n *int) {
@@ -365,10 +364,10 @@ func selesai(T *tabTugas, n int, nama string) {
 	found = sequentialSearchNama(*T, n, nama)
 	if found == -1 {
 		fmt.Println("\n  Tugas tidak ditemukan.")
-		return
+	} else {
+		T[found].status = true
+		fmt.Println("\n  Tugas ditandai selesai.")
 	}
-	T[found].status = true
-	fmt.Println("\n  Tugas ditandai selesai.")
 }
 
 func menuSelesai(T *tabTugas, n int) {
