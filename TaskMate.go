@@ -39,7 +39,7 @@ func menuInput(T *tabTugas, n *int) {
 	*n = *n + 1
 	T[*n].urutan = *n
 	fmt.Printf("\n  Tugas #%d\n", T[*n].urutan+1)
-	fmt.Print("  Nama            : ")
+	fmt.Print("  Nama tugas      : ")
 	fmt.Scan(&T[*n].nama)
 	fmt.Print("  Ruangan         : ")
 	fmt.Scan(&T[*n].kategori)
@@ -75,7 +75,6 @@ func tampilSatuTugas(T tabTugas, i int) {
 
 func menuTampilTugas(T tabTugas, n int) {
 	var i int
-	insertionSortAscendingUrutan(&T, n)
 	if n < 0 {
 		fmt.Println("\n  Belum ada tugas.")
 	} else {
@@ -418,7 +417,7 @@ func menuHapus(T *tabTugas, n *int) {
 	hapus(T, n, keyword)
 }
 
-func selesai(T *tabTugas, n int, nama string) {
+func tandaiSelesai(T *tabTugas, n int, nama string) {
 	var found int
 	found = sequentialSearchNama(*T, n, nama)
 	if found == -1 {
@@ -429,13 +428,13 @@ func selesai(T *tabTugas, n int, nama string) {
 	}
 }
 
-func menuSelesai(T *tabTugas, n int) {
+func menuTandaiSelesai(T *tabTugas, n int) {
 	var keyword string
 	fmt.Println("\n  Tandai Tugas Selesai")
 	fmt.Println("  ------------------------")
 	fmt.Print("  Nama tugas: ")
 	fmt.Scan(&keyword)
-	selesai(T, n, keyword)
+	tandaiSelesai(T, n, keyword)
 }
 
 func main() {
@@ -454,6 +453,7 @@ func main() {
 			if n < 0 {
 				fmt.Println("\n  Belum ada tugas.")
 			} else {
+				insertionSortAscendingUrutan(&T, n)
 				menuTampilTugas(T, n)
 			}
 		case 3:
@@ -484,7 +484,7 @@ func main() {
 			if n < 0 {
 				fmt.Println("\n  Belum ada tugas.")
 			} else {
-				menuSelesai(&T, n)
+				menuTandaiSelesai(&T, n)
 			}
 		case 8:
 			if n < 0 {
