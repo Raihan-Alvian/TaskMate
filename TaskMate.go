@@ -367,7 +367,7 @@ func edit(T *tabTugas, n int, nama string) {
 
 func inputUpdate(t *tugas, nomor int) {
 	fmt.Printf("\n  Tugas #%d\n", nomor)
-	fmt.Print("  Nama            : ")
+	fmt.Print("  Nama tugas      : ")
 	fmt.Scan(&t.nama)
 	fmt.Print("  Ruangan         : ")
 	fmt.Scan(&t.kategori)
