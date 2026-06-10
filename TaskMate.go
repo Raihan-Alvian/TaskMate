@@ -159,8 +159,8 @@ func menuCari(T tabTugas, n int) {
 	fmt.Println("\n  Cari Tugas")
 	fmt.Println("  ------------------------")
 	fmt.Println("  Cari berdasarkan:")
-	fmt.Println("  1. Nama Pekerjaan")
-	fmt.Println("  2. Kategori Ruangan")
+	fmt.Println("  1. Nama Pekerjaan (bynary search)")
+	fmt.Println("  2. Kategori Ruangan (sequential search)")
 	fmt.Print("  Pilihan: ")
 	fmt.Scan(&berdasarkan)
 	switch berdasarkan {
@@ -198,7 +198,7 @@ func insertionSortAscendingUrutan(A *tabTugas, n int) {
 	var pass, i int
 	var temp tugas
 	pass = 1
-	for pass <= n-1 {
+	for pass <= n {
 		i = pass
 		temp = A[pass]
 		for i > 0 && temp.urutan < A[i-1].urutan {
@@ -214,7 +214,7 @@ func insertionSortAscendingNama(A *tabTugas, n int) {
 	var pass, i int
 	var temp tugas
 	pass = 1
-	for pass <= n-1 {
+	for pass <= n {
 		i = pass
 		temp = A[pass]
 		for i > 0 && temp.nama < A[i-1].nama {
@@ -230,7 +230,7 @@ func selectionSortAscendingKesulitan(A *tabTugas, n int) {
 	var pass, idx, i int
 	var temp tugas
 	pass = 1
-	for pass <= n-1 {
+	for pass <= n {
 		idx = pass - 1
 		i = pass
 		for i < n {
@@ -254,7 +254,7 @@ func selectionSortDescendingKesulitan(A *tabTugas, n int) {
 	var pass, idx, i int
 	var temp tugas
 	pass = 1
-	for pass <= n-1 {
+	for pass <= n {
 		idx = pass - 1
 		i = pass
 		for i < n {
@@ -278,7 +278,7 @@ func insertionSortAscendingDurasi(A *tabTugas, n int) {
 	var pass, i int
 	var temp tugas
 	pass = 1
-	for pass <= n-1 {
+	for pass <= n {
 		i = pass
 		temp = A[pass]
 		for i > 0 && temp.durasi < A[i-1].durasi {
@@ -294,7 +294,7 @@ func insertionSortDescendingDurasi(A *tabTugas, n int) {
 	var pass, i int
 	var temp tugas
 	pass = 1
-	for pass <= n-1 {
+	for pass <= n {
 		i = pass
 		temp = A[pass]
 		for i > 0 && temp.durasi > A[i-1].durasi {
@@ -311,15 +311,20 @@ func menuUrut(T *tabTugas, n int) {
 	fmt.Println("\n  Urutkan Tugas")
 	fmt.Println("  ------------------------")
 	fmt.Println("  Berdasarkan:")
-	fmt.Println("  1. Kesulitan")
-	fmt.Println("  2. Durasi")
+	fmt.Println("  1. Kesulitan (selection sort)")
+	fmt.Println("  2. Durasi (insertion sort)")
+	fmt.Println("  3. Urutan input (insertion sort)")
 	fmt.Print("  Pilihan: ")
 	fmt.Scan(&pBrdsrkn)
-	fmt.Println("\n  Arah urut:")
-	fmt.Println("  1. Naik  (termudah / tercepat dulu)")
-	fmt.Println("  2. Turun (tersulit / terlama dulu)")
-	fmt.Print("  Pilihan: ")
-	fmt.Scan(&pArah)
+	if pBrdsrkn == 3 {
+		insertionSortAscendingUrutan(T, n)
+	} else {
+		fmt.Println("\n  Arah urut:")
+		fmt.Println("  1. Naik  (termudah / tercepat dulu)")
+		fmt.Println("  2. Turun (tersulit / terlama dulu)")
+		fmt.Print("  Pilihan: ")
+		fmt.Scan(&pArah)
+	}
 
 	switch pBrdsrkn {
 	case 1:
@@ -348,6 +353,9 @@ func menuUrut(T *tabTugas, n int) {
 		default:
 			fmt.Println("\n  Pilihan arah urut tidak valid.")
 		}
+	case 3:
+		fmt.Println("\n  Tugas berhasil diurutkan.")
+		menuTampilTugas(*T, n)
 	default:
 		fmt.Println("\n  Pilihan tidak valid.")
 	}
@@ -453,7 +461,6 @@ func main() {
 			if n < 0 {
 				fmt.Println("\n  Belum ada tugas.")
 			} else {
-				insertionSortAscendingUrutan(&T, n)
 				menuTampilTugas(T, n)
 			}
 		case 3:
@@ -495,11 +502,9 @@ func main() {
 		default:
 			fmt.Println("\n  Pilihan tidak valid.")
 		}
-
 		tampilMenu()
 		fmt.Scan(&p)
 	}
-
 	fmt.Println("\n  Sampai jumpa!")
 	fmt.Println()
 }
