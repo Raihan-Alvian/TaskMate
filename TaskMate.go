@@ -505,6 +505,7 @@ func main() {
 		tampilMenu()
 		fmt.Scan(&p)
 	}
+
 	fmt.Println("\n  Sampai jumpa!")
 	fmt.Println()
 }
