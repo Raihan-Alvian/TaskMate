@@ -33,8 +33,6 @@ func tampilMenu() {
 	fmt.Print("  Pilihan: ")
 }
 
-// Fungsi untuk memasukkan data tugas baru secara sekuensial
-// dimulai dari 0 yaa
 func menuInput(T *tabTugas, n *int) {
 	*n = *n + 1
 	T[*n].urutan = *n
@@ -65,7 +63,7 @@ func tampilSatuTugas(T tabTugas, i int) {
 	} else {
 		status = "Belum"
 	}
-	fmt.Printf("\n  [%d] %s\n", T[i].urutan+1, T[i].nama)
+	fmt.Printf("\n  [%d] %s\n", i+1, T[i].nama)
 	fmt.Printf("      Ruangan     : %s\n", T[i].kategori)
 	fmt.Printf("      Deskripsi   : %s\n", T[i].deskripsi)
 	fmt.Printf("      Kesulitan   : %d/5\n", T[i].kesulitan)
@@ -233,7 +231,7 @@ func selectionSortAscendingKesulitan(A *tabTugas, n int) {
 	for pass <= n {
 		idx = pass - 1
 		i = pass
-		for i < n {
+		for i <= n {
 			if A[i].kesulitan < A[idx].kesulitan {
 				idx = i
 			} else if A[i].kesulitan == A[idx].kesulitan {
@@ -257,7 +255,7 @@ func selectionSortDescendingKesulitan(A *tabTugas, n int) {
 	for pass <= n {
 		idx = pass - 1
 		i = pass
-		for i < n {
+		for i <= n {
 			if A[i].kesulitan > A[idx].kesulitan {
 				idx = i
 			} else if A[i].kesulitan == A[idx].kesulitan {
@@ -404,6 +402,7 @@ func menuEdit(T *tabTugas, n int) {
 
 func hapus(T *tabTugas, n *int, nama string) {
 	var found, i int
+	insertionSortAscendingUrutan(T, *n)
 	found = sequentialSearchNama(*T, *n, nama)
 	if found == -1 {
 		fmt.Println("\n  Tugas tidak ditemukan.")
@@ -412,6 +411,9 @@ func hapus(T *tabTugas, n *int, nama string) {
 			T[i] = T[i+1]
 		}
 		*n = *n - 1
+		for i = 0; i <= *n; i++ {
+			T[i].urutan = i + 1
+		}
 		fmt.Println("\n  Tugas berhasil dihapus.")
 	}
 }
