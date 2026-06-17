@@ -34,6 +34,12 @@ func tampilMenu() {
 }
 
 func menuInput(T *tabTugas, n *int) {
+	// I.S.: Array T terdefinisi, n adalah indeks terakhir array (bisa bernilai -1 jika kosong).
+	// F.S.: Array T bertambah 1 elemen dari input pengguna, n bertambah 1.
+	if *n > NMAX {
+		fmt.Println("\n  Kapasitas penyimpanan penuh! Tidak bisa menambah tugas.")
+		return
+	}
 	*n = *n + 1
 	T[*n].urutan = *n
 	fmt.Printf("\n  Tugas #%d\n", T[*n].urutan+1)
@@ -57,6 +63,8 @@ func menuInput(T *tabTugas, n *int) {
 }
 
 func tampilSatuTugas(T tabTugas, i int) {
+	// I.S.: Array T terdefinisi dan tidak kosong, i adalah indeks elemen yang valid (0 <= i <= n).
+	// F.S.: Detail atribut tugas pada elemen ke-i (nama, ruangan, status, dll.) tercetak di layar.
 	var status string
 	if T[i].status {
 		status = "Selesai"
@@ -72,6 +80,8 @@ func tampilSatuTugas(T tabTugas, i int) {
 }
 
 func menuTampilTugas(T tabTugas, n int) {
+	// I.S.: Array T terdefinisi, n adalah indeks terakhir.
+	// F.S.: Jika n < 0, mencetak pesan "Belum ada tugas". Jika n >= 0, mencetak detail semua tugas dari indeks 0 hingga n secara berurutan.
 	var i int
 	if n < 0 {
 		fmt.Println("\n  Belum ada tugas.")
@@ -86,6 +96,8 @@ func menuTampilTugas(T tabTugas, n int) {
 }
 
 func MenuStatistik(T tabTugas, n int) {
+	// I.S.: Array T terdefinisi, n adalah indeks terakhir.
+	// F.S.: Menampilkan total tugas, jumlah tugas yang sudah/belum selesai, total durasi tugas yang selesai, dan rata-rata durasinya.
 	var i, totalSelesai, totalBelum, totalDurasiSelesai int
 	for i = 0; i <= n; i++ {
 		if T[i].status {
@@ -108,6 +120,8 @@ func MenuStatistik(T tabTugas, n int) {
 }
 
 func sequentialSearchNama(T tabTugas, n int, nama string) int {
+	// I.S.: Array T terdefinisi (tidak harus terurut), n adalah indeks terakhir. nama terdefinisi.
+	// Mengembalikan (Return): Indeks array (i) jika tugas dengan nama tersebut ditemukan. Jika tidak ditemukan, mengembalikan -1.
 	var i, found int
 	found = -1
 	i = 0
@@ -121,6 +135,8 @@ func sequentialSearchNama(T tabTugas, n int, nama string) int {
 }
 
 func sequentialSearchKategori(T tabTugas, n int, kategori string, count *int) int {
+	// I.S.: Array T dan n terdefinisi, parameter output count dialamatkan.
+	// F.S.: Menampilkan semua tugas yang cocok dengan kategori ruangan dan menambahkan nilai pada pointer count setiap kali ditemukan.
 	var i, found int
 	found = -1
 	for i = 0; i <= n; i++ {
@@ -134,6 +150,8 @@ func sequentialSearchKategori(T tabTugas, n int, kategori string, count *int) in
 }
 
 func binarySearchNama(T tabTugas, n int, keyword string) int {
+	// I.S.: Array T terdefinisi dan SUDAH TERURUT (ascending) berdasarkan atribut nama. n adalah indeks terakhir.
+	// Mengembalikan (Return): Indeks array (mid) jika nama tugas cocok dengan keyword. Jika tidak ditemukan, mengembalikan -1.
 	var lo, hi, mid, found int
 	lo = 0
 	hi = n
@@ -152,12 +170,15 @@ func binarySearchNama(T tabTugas, n int, keyword string) int {
 }
 
 func menuCari(T tabTugas, n int) {
+	// I.S.: Array T terdefinisi secara lokal (Pass-by-value). n adalah indeks terakhir.
+	// F.S.: Memproses masukan pengguna untuk memilih metode pencarian (Binary/Sequential) dan mencetak hasilnya ke layar tanpa merubah array asli.
 	var berdasarkan, idx, count int
 	var keyword string
+	count = 0
 	fmt.Println("\n  Cari Tugas")
 	fmt.Println("  ------------------------")
 	fmt.Println("  Cari berdasarkan:")
-	fmt.Println("  1. Nama Pekerjaan (bynary search)")
+	fmt.Println("  1. Nama Pekerjaan (binary search)")
 	fmt.Println("  2. Kategori Ruangan (sequential search)")
 	fmt.Print("  Pilihan: ")
 	fmt.Scan(&berdasarkan)
@@ -193,6 +214,8 @@ func menuCari(T tabTugas, n int) {
 }
 
 func insertionSortAscendingUrutan(A *tabTugas, n int) {
+	// I.S.: Array A terdefinisi, n adalah indeks terakhir array. Data mungkin acak.
+	// F.S.: Array A terurut secara membesar (ascending) berdasarkan atribut urutan.
 	var pass, i int
 	var temp tugas
 	pass = 1
@@ -209,6 +232,8 @@ func insertionSortAscendingUrutan(A *tabTugas, n int) {
 }
 
 func insertionSortAscendingNama(A *tabTugas, n int) {
+	// I.S.: Array A terdefinisi, n adalah indeks terakhir array. Data mungkin acak.
+	// F.S.: Array A terurut secara abjad/membesar (ascending) berdasarkan atribut nama.
 	var pass, i int
 	var temp tugas
 	pass = 1
@@ -225,6 +250,8 @@ func insertionSortAscendingNama(A *tabTugas, n int) {
 }
 
 func selectionSortAscendingKesulitan(A *tabTugas, n int) {
+	// I.S.: Array A terdefinisi, n adalah indeks terakhir array.
+	// F.S.: Array A terurut membesar (termudah -> tersulit). Jika skala kesulitan sama, elemen diurutkan berdasarkan durasi tercepat.
 	var pass, idx, i int
 	var temp tugas
 	pass = 1
@@ -249,6 +276,8 @@ func selectionSortAscendingKesulitan(A *tabTugas, n int) {
 }
 
 func selectionSortDescendingKesulitan(A *tabTugas, n int) {
+	// I.S.: Array A terdefinisi, n adalah indeks terakhir array.
+	// F.S.: Array A terurut mengecil (tersulit -> termudah). Jika skala kesulitan sama, elemen diurutkan berdasarkan durasi terlama.
 	var pass, idx, i int
 	var temp tugas
 	pass = 1
@@ -273,6 +302,8 @@ func selectionSortDescendingKesulitan(A *tabTugas, n int) {
 }
 
 func insertionSortAscendingDurasi(A *tabTugas, n int) {
+	// I.S.: Array A terdefinisi, n adalah indeks terakhir array.
+	// F.S.: Array A terurut membesar (tercepat -> terlama) berdasarkan atribut durasi tugas.
 	var pass, i int
 	var temp tugas
 	pass = 1
@@ -289,6 +320,8 @@ func insertionSortAscendingDurasi(A *tabTugas, n int) {
 }
 
 func insertionSortDescendingDurasi(A *tabTugas, n int) {
+	// I.S.: Array A terdefinisi, n adalah indeks terakhir array.
+	// F.S.: Array A terurut mengecil (terlama -> tercepat) berdasarkan atribut durasi tugas.
 	var pass, i int
 	var temp tugas
 	pass = 1
@@ -305,6 +338,8 @@ func insertionSortDescendingDurasi(A *tabTugas, n int) {
 }
 
 func menuUrut(T *tabTugas, n int) {
+	// I.S.: Array T terdefinisi dan n adalah indeks terakhir.
+	// F.S.: Menampilkan menu pilihan kriteria pengurutan, menjalankan fungsi sorting yang sesuai dengan pilihan pengguna, dan menampilkan array hasil pengurutan.
 	var pBrdsrkn, pArah int
 	fmt.Println("\n  Urutkan Tugas")
 	fmt.Println("  ------------------------")
@@ -360,6 +395,8 @@ func menuUrut(T *tabTugas, n int) {
 }
 
 func edit(T *tabTugas, n int, nama string) {
+	// I.S.: Array T terdefinisi, n adalah indeks terakhir array, variabel nama terdefinisi sebagai target pencarian.
+	// F.S.: Jika target ditemukan, memanggil fungsi inputUpdate untuk merubah data elemen tersebut. Jika tidak, mencetak pesan error.
 	var found int
 	found = sequentialSearchNama(*T, n, nama)
 	if found == -1 {
@@ -372,6 +409,8 @@ func edit(T *tabTugas, n int, nama string) {
 }
 
 func inputUpdate(t *tugas, nomor int) {
+	// I.S.: Pointer t terdefinisi dan menunjuk pada satu elemen tugas tertentu. nomor adalah urutan elemen.
+	// F.S.: Atribut dari elemen tugas (nama, kategori, deskripsi, kesulitan, durasi) berubah sesuai masukan dari pengguna melalui keyboard.
 	fmt.Printf("\n  Tugas #%d\n", nomor)
 	fmt.Print("  Nama tugas      : ")
 	fmt.Scan(&t.nama)
@@ -392,6 +431,8 @@ func inputUpdate(t *tugas, nomor int) {
 }
 
 func menuEdit(T *tabTugas, n int) {
+	// I.S.: Array T terdefinisi, n adalah indeks terakhir array.
+	// F.S.: Membaca masukan nama tugas dari pengguna dan memanggil prosedur edit untuk memprosesnya.
 	var keyword string
 	fmt.Println("\n  Edit Tugas")
 	fmt.Println("  ------------------------")
@@ -401,6 +442,8 @@ func menuEdit(T *tabTugas, n int) {
 }
 
 func hapus(T *tabTugas, n *int, nama string) {
+	// I.S.: Array T terdefinisi, variabel nama terdefinisi. n adalah indeks terakhir array.
+	// F.S.: Array diurutkan berdasarkan input awal terlebih dahulu. Jika elemen ditemukan, elemen digeser ke kiri untuk menimpa target (menghapus). Nilai n berkurang 1 dan nilai atribut "urutan" diperbarui ulang.
 	var found, i int
 	insertionSortAscendingUrutan(T, *n)
 	found = sequentialSearchNama(*T, *n, nama)
@@ -419,6 +462,8 @@ func hapus(T *tabTugas, n *int, nama string) {
 }
 
 func menuHapus(T *tabTugas, n *int) {
+	// I.S.: Array T terdefinisi, n adalah indeks terakhir array.
+	// F.S.: Membaca nama tugas dari pengguna dan mengeksekusi prosedur hapus dengan melemparkan referensi n.
 	var keyword string
 	fmt.Println("\n  Hapus Tugas")
 	fmt.Println("  ------------------------")
@@ -428,6 +473,8 @@ func menuHapus(T *tabTugas, n *int) {
 }
 
 func tandaiSelesai(T *tabTugas, n int, nama string) {
+	// I.S.: Array T terdefinisi, n terdefinisi, nama tugas yang ingin diselesaikan terdefinisi.
+	// F.S.: Jika target tugas ditemukan, nilai boolean status pada elemen tersebut diubah menjadi true. Jika tidak ditemukan, mencetak pesan error.
 	var found int
 	found = sequentialSearchNama(*T, n, nama)
 	if found == -1 {
@@ -439,6 +486,8 @@ func tandaiSelesai(T *tabTugas, n int, nama string) {
 }
 
 func menuTandaiSelesai(T *tabTugas, n int) {
+	// I.S.: Array T terdefinisi, n terdefinisi.
+	// F.S.: Membaca nama tugas dari pengguna lalu memanggil prosedur tandaiSelesai untuk mengeksekusinya.
 	var keyword string
 	fmt.Println("\n  Tandai Tugas Selesai")
 	fmt.Println("  ------------------------")
