@@ -149,6 +149,19 @@ func sequentialSearchKategori(T tabTugas, n int, kategori string, count *int) in
 	return found
 }
 
+func sequentialSearchDurasi(T tabTugas, n int, key int, count *int) int {
+	var i, found int
+	found = -1
+	for i = 0; i <= n; i++ {
+		if T[i].durasi == key {
+			found = i
+			*count++
+			tampilSatuTugas(T, i)
+		}
+	}
+	return found
+}
+
 func binarySearchNama(T tabTugas, n int, keyword string) int {
 	// I.S.: Array T terdefinisi dan SUDAH TERURUT (ascending) berdasarkan atribut nama. n adalah indeks terakhir.
 	// Mengembalikan (Return): Indeks array (mid) jika nama tugas cocok dengan keyword. Jika tidak ditemukan, mengembalikan -1.
@@ -174,12 +187,14 @@ func menuCari(T tabTugas, n int) {
 	// F.S.: Memproses masukan pengguna untuk memilih metode pencarian (Binary/Sequential) dan mencetak hasilnya ke layar tanpa merubah array asli.
 	var berdasarkan, idx, count int
 	var keyword string
+	var key int
 	count = 0
 	fmt.Println("\n  Cari Tugas")
 	fmt.Println("  ------------------------")
 	fmt.Println("  Cari berdasarkan:")
 	fmt.Println("  1. Nama Pekerjaan (binary search)")
 	fmt.Println("  2. Kategori Ruangan (sequential search)")
+	fmt.Println("  3. Durasi Tugas (sequential search)")
 	fmt.Print("  Pilihan: ")
 	fmt.Scan(&berdasarkan)
 	switch berdasarkan {
@@ -205,6 +220,16 @@ func menuCari(T tabTugas, n int) {
 		idx = sequentialSearchKategori(T, n, keyword, &count)
 		if idx == -1 {
 			fmt.Printf("\n  Tidak ada tugas dengan ruangan \"%s\".\n", keyword)
+		} else {
+			fmt.Printf("\n  Ditemukan %d tugas.\n", count)
+		}
+	case 3:
+		fmt.Println("\n  Metode pencarian dengan Sequential Search berdasarkan Durasi Tugas")
+		fmt.Print("\n  Masukan durasi tugas (menit): ")
+		fmt.Scan(&key)
+		sequentialSearchDurasi(T, n, key, &count)
+		if count == 0 {
+			fmt.Printf("\n  Tidak ada tugas dengan durasi %d menit.\n", key)
 		} else {
 			fmt.Printf("\n  Ditemukan %d tugas.\n", count)
 		}
